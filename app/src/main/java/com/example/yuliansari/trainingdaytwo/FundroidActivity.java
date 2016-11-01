@@ -18,6 +18,7 @@ public class FundroidActivity extends AppCompatActivity {
     private TextView feture;
     private Button button;
     fundroidlist fundroids;
+    int randomColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,33 +29,27 @@ public class FundroidActivity extends AppCompatActivity {
         feture = (TextView) findViewById(R.id.feature);
         //button = (ImageButton) findViewById(R.id.button);
         button = (Button) findViewById(R.id.btn_random);
+
         funbgcolor = (LinearLayout) findViewById(R.id.activity_fundroid);
         fundroids = new fundroidlist();
+        final funcolorlist Funcolorlist = new funcolorlist();
+
 
         //Log.i(LOG_TAG, "Isi array list ini adalah "+newfundroid);
 
-        final int[] bgcolor = {
-                0XFF4DD0E1,
-                0XFF64B5F6,
-                0XFF7986CB,
-                0XFF9575CD,
-                0XFFBA68C8,
-                0XFFF06292,
-                0XFFEF5350,
-                0XFFAED581,
-                0XFFDCE775
-        };
-
+        //ketika di klik button jadi berubah.
+        //kalau mau ketika gambarnya di klik terus berubah, ganti jadi logo.setOnClickListener
+        //kalau mau semua layout di klik terus berubah, ganti jadi funbgcolor
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Random randomGenerator = new Random();
                // int randomLogo = randomGenerator.nextInt(droidId.length);
-                int randomBG = randomGenerator.nextInt(bgcolor.length);
+                randomColor = Funcolorlist.createFunColor();
                 int randomNub = randomGenerator.nextInt(fundroids.getSize());
                 //Toast.makeText(FundroidActivity.this, "randomNumber : " + randomLogo, Toast.LENGTH_SHORT).show();
                 logo.setImageResource(fundroids.getLogo(randomNub));
-                funbgcolor.setBackgroundColor(bgcolor[randomBG]);
+                funbgcolor.setBackgroundColor(randomColor);
                 feture.setText(fundroids.getFeature(randomNub));
             }
         });
